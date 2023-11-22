@@ -1,0 +1,28 @@
+step 1:npm init -y
+step 2: npm i express nodemon
+step 3: package.json>script >'start':'nodemon index.js'
+step 4:package.json >"type":"module"
+step 5: index.js,import express ,create instance of it,const app=express();
+step 6: create api's , app.get(/"hello",hello)
+step 6.1: Connect mongodb ....(pending...)
+step 7: app listen on port
+MONGO CONNECTION:
+step 1: npm i mongoose
+step 2: import mongoose from 'mongoose'
+step 3: mongoose.connect('yoururl').then(()=> console.log("Database Connected"))
+step 4: create data modals
+step 5:create file and use schema
+.ENV CONNECTION
+step 1: npm i dotenv
+step 2: import dotenv from dotenv
+step 3: after app, dotenv.config();
+step 4:now you can access env variables in any files with process.env.variablename
+Logger reports:
+step 1: npm i morgan
+step 2:import morgan from morgan
+step 3: app.use(morgan('dev'))
+Cors CONNECTION
+used to connect to backend server with frontend use cors 
+step 1: npm i cors
+step 2: import cors from cors
+step 3: app.use(cors());
