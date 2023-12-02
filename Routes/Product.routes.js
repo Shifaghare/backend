@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { addProduct, getAllProducts, getFilteredResults, getPageResults, getSingleProduct, getSortedResults } from "../Controllers/Products.controllers.js";
+import {  addProduct,  getAllProducts, getFilteredResults, getPageResults, getSingleProduct, getSortedResults,  updateProduct,  yourProducts } from "../Controllers/Products.controllers.js";
 import { checkUserId } from "../Middlewares/AllMiddlewares.js";
 
 const router =Router(); 
@@ -10,6 +10,8 @@ router.get("/getsingleproduct", getSingleProduct);
 router.get("/getpageresults", getPageResults);
 router.get("/getsortedresults", getSortedResults);
 router.get("/getfilteredresults", getFilteredResults);
+router.post("/yourproducts",yourProducts)
+router.post("/updateproduct",updateProduct)
 
 
 export default router;

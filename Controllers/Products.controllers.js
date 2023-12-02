@@ -12,45 +12,48 @@ import ProductModal from "../Modals/Product.modal.js"
                 res.status(404).json({sucess : false , message : "product Not Found!"})
             }
         }catch(error){
-            
+            res.status(500).json({sucess : false , message : "Error Found!"})
+
         }
 }
 
-
-export const getSingleProduct = async (req, res) => {
+export const getSingleProduct = async (req, res)=>{
     try{
-        const {id} = req.body;
-        if(!id) return res.status(401).json({success:false, message:"No product ID provided"});
+        const {id :Id} = req.query
+        // console.log(id)
 
-        const product = await ProductModal.findById({_id:id});
-        if(!product) return res.status(401).json({success:false, message:"Product not found"});
+        const product = await ProductModal.findById(Id)
 
-        return res.status(200).json({success:true, product:product});
-    } catch(error){
-        return res.status(500).json({success:false, message:error})
+        if(!product)return res.status(404).json({success:false , message:'no Id matched'})
+        console.log(product)
+        return res.status(200).json({success:true , message : 'Product found ' , product})
     }
-    
+    catch(error){
+        console.log(error)
+        return  res.status(500).json({success:false , message:'something went wrong'})
+    }
 }
+
     export const addProduct = async (req,res) => {
         try{
                  const {name, price, category, image, id} = req.body;
      
-                 if(!name || !price || !category || !image || !id) return res.status(401).json({success: false, message:"All fields are mandatory"});
+                 if(!name || !price || !category || !image ) return res.status(404).json({success: false, message:"All fields are mandatory"});
              
                  const product = new ProductModal({
                      name,
                      price,
                      category,
-                     image,
-                     id
+                     image:image,
+                     userId:id
                  })
              
-                 await product.save();
+                 const ress=await product.save();
              
                  return res.status(201).json({success:true, message:"Added New Product"});
      
         } catch(error){
-             console.log(error.message);
+             console.log(error,"there's an error in fetching products");
              return res.status(500).json({success:false, message: error});
         }
      
@@ -99,3 +102,47 @@ export const getSingleProduct = async (req, res) => {
              return res.status(500).json({success:false, message:error}); 
          }
      }
+
+    //  export const yourProducts = async (req, res) => {
+    //     try {
+    //         const { id } = req.body;
+    //         console.log(id)
+    //         if (!id) return res.status(404).json({ message: "Id not found." })
+           
+    //         const allproducts = await ProductModal.find({ userId: id })
+    
+    //         return res.status(200).json({ success: true, products:products })
+    
+    //     } catch (error) {
+    //         return res.status(500).json({ success: false, message: "something went wrong." })
+    //     }
+    // }
+    export const yourProducts = async (req , res )=>{
+        try{
+            const { id } = req.body
+    
+            if(!id) return  res.status(404).json({success:false, message:'Id not found'})
+    
+            const allProducts = await ProductModal.find({userId: id})
+            // console.log(allProducts)
+            return res.status(200).json({success : true , message:'your products ' , allProducts})
+        }catch(error){
+            console.log(error)
+            return res.status(500).json({success:false , message:'something went wrong'})
+        }
+    }
+
+    export const updateProduct=async(req,res)=>{
+        try{
+         const {name,price,category,image,_id}=req.body.productData
+         if(!name|| !price || !category ||!image ||!_id) 
+         return res.status(404).json({success:false,message:'all fields are required'})
+       
+         await ProductModal.findByIdAndUpdate(_id,{name,price,category,image})
+         return res.status(200).json({success:true,message:'updated successfully'})
+       
+        }
+        catch(error){
+            return res.status(500).json({success:false , message:'something went wrong'})
+        }
+    }
