@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { addCart } from "../Controllers/User.controllers.js";
-
-const router = Router();
-
-router.post('/addcart', addCart)
+import { addCart, deleteCart, getCart } from "../Controllers/User.controllers.js";
 
 
-export default router;
+const router = Router()
+
+router.post("/cart",addCart)
+router.post("/getcart",getCart)
+router.post('/deletecart',deleteCart)
+
+
+export default router

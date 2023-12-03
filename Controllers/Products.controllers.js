@@ -146,3 +146,20 @@ export const getSingleProduct = async (req, res)=>{
             return res.status(500).json({success:false , message:'something went wrong'})
         }
     }
+
+
+    export const deleteProduct=async (req,res)=>{
+       try{
+        const {id}=req.query
+        if(!id) 
+        return res.status(404).json({success:false,message:'id not found'})
+
+          await ProductModal.findByIdAndRemove(id)
+          return res.status(200).json({success:true,message:"Product deleted"})
+}
+
+catch(error){
+    return res.status(500).json({success:false , message:'something went wrong'})
+
+}
+    }
