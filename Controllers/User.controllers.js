@@ -4,8 +4,7 @@ import UserModal from "../Modals/User.modal.js"
 export const addCart = async (req, res) => {
     try {
         const { productId, userId } = req.body
-
-        if (!productId || !userId) return res.status(404).json({ success: false, message: 'no product Id matched' })
+        if (!productId || !userId) return res.status(404).json({ success: false, message: 'no Id matched' })
 
 
         await UserModal.findByIdAndUpdate(userId, { $push: { cart: productId } })

@@ -1,6 +1,7 @@
 import UserModal from "../Modals/User.modal.js";
 import bcrypt from 'bcrypt'
 import Jwt  from "jsonwebtoken";
+
 export const Login = async (req, res) => {
     // res.send("Hello from login")
     try{
