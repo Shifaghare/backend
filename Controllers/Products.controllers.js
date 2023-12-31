@@ -12,7 +12,7 @@ import ProductModal from "../Modals/Product.modal.js"
                 res.status(404).json({sucess : false , message : "product Not Found!"})
             }
         }catch(error){
-            res.status(500).json({sucess : false , message : "Error Found!"})
+            res.status(500).json({sucesss : false , message : "Error Found!"})
 
         }
 }
